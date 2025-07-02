@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private Text healthText;
     [SerializeField] float speed = 6f;
-    [SerializeField] float mouseSensitivity = 100f;
+    [SerializeField] float mouseSensitivity = 500;
     [SerializeField] float gravitity = -9.8f;
     [SerializeField] public Transform playerCamera;
     [SerializeField] private float rotationSpeed = 5f;
@@ -21,8 +21,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Damage Management")]
     [SerializeField] private bool isTakingDamage = false;
-    [SerializeField] private float damageAmount = 10;
+    [SerializeField] private float damageAmount = 1;
     [SerializeField] private float damageInterval = 2;
+    [SerializeField] private Image damageOverlay;
+    [SerializeField] private float flashSpeed = 5f;
+    [SerializeField] private float overlayMaxAlpha = 0.4f;
+    private bool flashing = false;
 
 
     private CharacterController playerController;
@@ -44,7 +48,7 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        StartCoroutine(ApplyDamageOverTime());
+
     }
 
     void MovePlayer()
@@ -107,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-
+            StartCoroutine(ApplyDamageOverTime());
         }
     }
 
@@ -134,6 +138,7 @@ public class PlayerController : MonoBehaviour
             health = Mathf.Clamp(health, 0, maxHealth);
 
             healthText.text = health.ToString();
+            StartCoroutine(FlashDamageOverlay());
 
             if (health <= 0)
             {
@@ -147,5 +152,28 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log("Player morreu");
+    }
+
+    IEnumerator FlashDamageOverlay()
+    {
+        flashing = true;
+
+        damageOverlay.color = new Color(1, 0, 0, overlayMaxAlpha);
+
+        yield return new WaitForSeconds(0.1f);
+
+        float elapsed = 0f;
+        Color startColor = damageOverlay.color;
+        Color endColor = new Color(1, 0, 0, 0);
+
+        while (elapsed < 0.5f)
+        {
+            damageOverlay.color = Color.Lerp(startColor, endColor, elapsed / 0.5f);
+            elapsed += Time.deltaTime * flashSpeed;
+            yield return null;
+        }
+
+        damageOverlay.color = endColor;
+        flashing = false;
     }
 }
