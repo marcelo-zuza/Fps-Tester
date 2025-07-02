@@ -28,7 +28,7 @@ public class GunController : MonoBehaviour
     private bool isReloading = false;
 
 
-    [Header("Gun Shale")]
+    [Header("Gun Shake")]
     [SerializeField] private float swayAmountX = 0.05f;
     [SerializeField] private float swayAmounty = 0.05f;
     [SerializeField] private float swaySpeed = 5f;
@@ -206,10 +206,5 @@ public class GunController : MonoBehaviour
             yield return null;
         }
         transform.localPosition = initialWeaponPosition; // Garante que volte para a posição exata
-    }
-
-    void ReloadGun()
-    {
-
     }
 }

@@ -1,14 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Settings")]
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private Text healthText;
     [SerializeField] float speed = 6f;
     [SerializeField] float mouseSensitivity = 100f;
     [SerializeField] float gravitity = -9.8f;
     [SerializeField] public Transform playerCamera;
     [SerializeField] private float rotationSpeed = 5f;
+
+    [Header("Jump Configuration")]
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float jumpForce = 3f;
+
+    [Header("Damage Management")]
+    [SerializeField] private bool isTakingDamage = false;
+    [SerializeField] private float damageAmount = 10;
+    [SerializeField] private float damageInterval = 2;
+
 
     private CharacterController playerController;
     private Vector3 velocity;
@@ -23,6 +38,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        healthText.text = health.ToString();
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
+        StartCoroutine(ApplyDamageOverTime());
     }
 
     void MovePlayer()
@@ -66,5 +88,64 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+    }
+
+    void Jump()
+    {
+        if (playerController.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravitity);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+
+        }
+    }
+
+    IEnumerator ApplyDamageOverTime()
+    {
+        isTakingDamage = true;
+
+        while (isTakingDamage)
+        {
+            health -= damageAmount;
+            health = Mathf.Clamp(health, 0, maxHealth);
+
+            healthText.text = health.ToString();
+
+            if (health <= 0)
+            {
+                Die();
+                yield break;
+            }
+            yield return new WaitForSeconds(damageInterval);
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player morreu");
     }
 }
