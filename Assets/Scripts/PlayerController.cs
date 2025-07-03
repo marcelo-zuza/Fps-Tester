@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
-    [SerializeField] private float health = 100f;
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private Text healthText;
+    [SerializeField] public float health = 100f;
+    [SerializeField] public float maxHealth = 100f;
+    //[SerializeField] private Text healthText;
     [SerializeField] float speed = 6f;
     [SerializeField] float mouseSensitivity = 500;
     [SerializeField] float gravitity = -9.8f;
@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private float jumpForce = 3f;
 
-    [Header("Damage Management")]
-    [SerializeField] private bool isTakingDamage = false;
-    [SerializeField] private float damageAmount = 1;
-    [SerializeField] private float damageInterval = 2;
-    [SerializeField] private Image damageOverlay;
-    [SerializeField] private float flashSpeed = 5f;
-    [SerializeField] private float overlayMaxAlpha = 0.4f;
-    private bool flashing = false;
+    // [Header("Damage Management")]
+    // [SerializeField] private bool isTakingDamage = false;
+    // [SerializeField] private float damageAmount = 1;
+    // [SerializeField] private float damageInterval = 2;
+    // [SerializeField] private Image damageOverlay;
+    // [SerializeField] private float flashSpeed = 5f;
+    // [SerializeField] private float overlayMaxAlpha = 0.4f;
+    // private bool flashing = false;
 
 
     private CharacterController playerController;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        healthText.text = health.ToString();
+        //healthText.text = health.ToString();
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -109,10 +109,10 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
 
-        if (other.CompareTag("Enemy"))
-        {
-            StartCoroutine(ApplyDamageOverTime());
-        }
+        // if (other.CompareTag("Enemy"))
+        // {
+        //     StartCoroutine(ApplyDamageOverTime());
+        // }
     }
 
     void OnTriggerExit(Collider other)
@@ -121,59 +121,54 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-
-        if (other.CompareTag("Enemy"))
-        {
-
-        }
     }
 
-    IEnumerator ApplyDamageOverTime()
-    {
-        isTakingDamage = true;
+    // IEnumerator ApplyDamageOverTime()
+    // {
+    //     isTakingDamage = true;
 
-        while (isTakingDamage)
-        {
-            health -= damageAmount;
-            health = Mathf.Clamp(health, 0, maxHealth);
+    //     while (isTakingDamage)
+    //     {
+    //         health -= damageAmount;
+    //         health = Mathf.Clamp(health, 0, maxHealth);
 
-            healthText.text = health.ToString();
-            StartCoroutine(FlashDamageOverlay());
+    //         healthText.text = health.ToString();
+    //         StartCoroutine(FlashDamageOverlay());
 
-            if (health <= 0)
-            {
-                Die();
-                yield break;
-            }
-            yield return new WaitForSeconds(damageInterval);
-        }
-    }
+    //         if (health <= 0)
+    //         {
+    //             Die();
+    //             yield break;
+    //         }
+    //         yield return new WaitForSeconds(damageInterval);
+    //     }
+    // }
 
-    void Die()
+    public void Die()
     {
         Debug.Log("Player morreu");
     }
 
-    IEnumerator FlashDamageOverlay()
-    {
-        flashing = true;
+    // IEnumerator FlashDamageOverlay()
+    // {
+    //     flashing = true;
 
-        damageOverlay.color = new Color(1, 0, 0, overlayMaxAlpha);
+    //     damageOverlay.color = new Color(1, 0, 0, overlayMaxAlpha);
 
-        yield return new WaitForSeconds(0.1f);
+    //     yield return new WaitForSeconds(0.1f);
 
-        float elapsed = 0f;
-        Color startColor = damageOverlay.color;
-        Color endColor = new Color(1, 0, 0, 0);
+    //     float elapsed = 0f;
+    //     Color startColor = damageOverlay.color;
+    //     Color endColor = new Color(1, 0, 0, 0);
 
-        while (elapsed < 0.5f)
-        {
-            damageOverlay.color = Color.Lerp(startColor, endColor, elapsed / 0.5f);
-            elapsed += Time.deltaTime * flashSpeed;
-            yield return null;
-        }
+    //     while (elapsed < 0.5f)
+    //     {
+    //         damageOverlay.color = Color.Lerp(startColor, endColor, elapsed / 0.5f);
+    //         elapsed += Time.deltaTime * flashSpeed;
+    //         yield return null;
+    //     }
 
-        damageOverlay.color = endColor;
-        flashing = false;
-    }
+    //     damageOverlay.color = endColor;
+    //     flashing = false;
+    // }
 }
