@@ -10,6 +10,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public Transform player;
     [SerializeField] public bool isChasing = false;
 
+    [Header("Enemy Stats")]
+    [SerializeField] public float enemyHealth = 100f;
+
     private NavMeshAgent agent;
     void Start()
     {
@@ -43,5 +46,19 @@ public class EnemyController : MonoBehaviour
             isChasing = false;
             agent.ResetPath();
         }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        enemyHealth -= amount;
+        if (enemyHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        
     }
 }
