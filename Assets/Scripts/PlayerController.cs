@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -19,14 +20,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private float jumpForce = 3f;
 
-    // [Header("Damage Management")]
-    // [SerializeField] private bool isTakingDamage = false;
-    // [SerializeField] private float damageAmount = 1;
-    // [SerializeField] private float damageInterval = 2;
-    // [SerializeField] private Image damageOverlay;
-    // [SerializeField] private float flashSpeed = 5f;
-    // [SerializeField] private float overlayMaxAlpha = 0.4f;
-    // private bool flashing = false;
+    [Header("Death Settings")]
+    [SerializeField] private Image deathOverlay;
+    [SerializeField] private Text deathMessage;
+    [SerializeField] private Text pressEnterToRestart;
+    [SerializeField] private RawImage cross;
+    [SerializeField] private float cameraTiltAngle = 30f;
+    [SerializeField] private float cameraDropDistance = 0.5f;
+    [SerializeField] private float effectDuration = 2f;
+    [SerializeField] private bool isDead = false;
 
 
     private CharacterController playerController;
@@ -108,11 +110,6 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
-
-        // if (other.CompareTag("Enemy"))
-        // {
-        //     StartCoroutine(ApplyDamageOverTime());
-        // }
     }
 
     void OnTriggerExit(Collider other)
@@ -123,52 +120,77 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // IEnumerator ApplyDamageOverTime()
-    // {
-    //     isTakingDamage = true;
-
-    //     while (isTakingDamage)
-    //     {
-    //         health -= damageAmount;
-    //         health = Mathf.Clamp(health, 0, maxHealth);
-
-    //         healthText.text = health.ToString();
-    //         StartCoroutine(FlashDamageOverlay());
-
-    //         if (health <= 0)
-    //         {
-    //             Die();
-    //             yield break;
-    //         }
-    //         yield return new WaitForSeconds(damageInterval);
-    //     }
-    // }
 
     public void Die()
     {
         Debug.Log("Player morreu");
+        TriggerDeath();
+        
     }
 
-    // IEnumerator FlashDamageOverlay()
-    // {
-    //     flashing = true;
+    public void TriggerDeath()
+    {
+        if (!isDead)
+        {
+            isDead = true;
+            if (cross != null)
+            {
+                cross.gameObject.SetActive(false);
+            }
+            GetComponent<PlayerController>().enabled = false;
+            GetComponentInChildren<GunController>().enabled = false;
+            GetComponent<CharacterController>().enabled = false;
+            GetComponentInChildren<DamageController>().enabled = false;
+            StartCoroutine(DeathEffect());
 
-    //     damageOverlay.color = new Color(1, 0, 0, overlayMaxAlpha);
+        }
+    }
 
-    //     yield return new WaitForSeconds(0.1f);
+    IEnumerator DeathEffect()
+    {
+        float elapsed = 0f;
+        Vector3 startPos = playerCamera.localPosition;
+        Quaternion startRot = playerCamera.localRotation;
+        Vector3 endPos = startPos + Vector3.down * cameraDropDistance;
+        Quaternion endRot = Quaternion.Euler(cameraTiltAngle, 0, cameraTiltAngle);
 
-    //     float elapsed = 0f;
-    //     Color startColor = damageOverlay.color;
-    //     Color endColor = new Color(1, 0, 0, 0);
+        deathMessage.gameObject.SetActive(true);
 
-    //     while (elapsed < 0.5f)
-    //     {
-    //         damageOverlay.color = Color.Lerp(startColor, endColor, elapsed / 0.5f);
-    //         elapsed += Time.deltaTime * flashSpeed;
-    //         yield return null;
-    //     }
+        while (elapsed < effectDuration)
+        {
+            float alpha = Mathf.Lerp(0, 0.5f, elapsed / effectDuration);
+            deathOverlay.color = new Color(1, 0, 0, alpha);
 
-    //     damageOverlay.color = endColor;
-    //     flashing = false;
-    // }
+            playerCamera.localPosition = Vector3.Lerp(startPos, endPos, elapsed / effectDuration);
+            playerCamera.localRotation = Quaternion.Slerp(startRot, endRot, elapsed / effectDuration);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        deathOverlay.color = new Color(1, 0, 0, 0.5f);
+        playerCamera.localPosition = endPos;
+        playerCamera.localRotation = endRot;
+
+        StartCoroutine(WaitForRestart());
+    }
+
+    IEnumerator WaitForRestart()
+    {
+        yield return new WaitForSeconds(3f);
+        if (pressEnterToRestart != null)
+        {
+            pressEnterToRestart.gameObject.SetActive(true);
+        }
+
+        while (true)
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                yield return null;
+            }
+    }
+
 }

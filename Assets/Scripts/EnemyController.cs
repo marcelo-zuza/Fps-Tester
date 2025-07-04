@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private WeaponSwitcher weaponSwitcher;
+    
     [Header("Enemy Configuration")]
     [SerializeField] private float chaseSpeed = 1f;
     [SerializeField] public Transform player;
@@ -59,6 +61,6 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
-        
+
     }
 }

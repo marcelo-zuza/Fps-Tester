@@ -13,6 +13,7 @@ public class WeaponSwitcher : MonoBehaviour
         // {
 
         // }
+
     }
 
     // Update is called once per frame
@@ -26,6 +27,7 @@ public class WeaponSwitcher : MonoBehaviour
         {
             currentWeaponIndex = (currentWeaponIndex + 1) % ownedWeapons.Count;
             SelectWeapon(currentWeaponIndex);
+            // Debug.Log("Current weapon index: " + currentWeaponIndex);
         }
     }
 
