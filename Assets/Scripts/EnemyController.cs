@@ -11,15 +11,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float chaseSpeed = 1f;
     [SerializeField] public Transform player;
     [SerializeField] public bool isChasing = false;
+    [SerializeField] private GameObject bloodEffect;
+    [SerializeField] private float bloodEffectTime = 0.2f;
 
     [Header("Enemy Stats")]
-    [SerializeField] public float enemyHealth = 100f;
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] public float enemyHealth;
 
     private NavMeshAgent agent;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = chaseSpeed;
+        enemyHealth = maxHealth;
     }
 
     void Update()
@@ -52,7 +56,9 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        StartCoroutine(BloodEffect());
         enemyHealth -= amount;
+        Debug.Log("Inimigo levou dano de " + amount + " agora tem " + enemyHealth + " de vida");
         if (enemyHealth <= 0)
         {
             Die();
@@ -61,6 +67,23 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
-
+        Debug.Log("Inimigo morreu");
+        Destroy(gameObject);
     }
+
+    IEnumerator BloodEffect()
+    {
+        if(bloodEffect != null)
+        { 
+            bloodEffect.gameObject.SetActive(true);
+            yield return new WaitForSeconds(bloodEffectTime);
+            bloodEffect.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Blood effect not assigned");
+        }
+    }
+
+
 }

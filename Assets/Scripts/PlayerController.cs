@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
 
     private CharacterController playerController;
+    public GunController gunController;
     private Vector3 velocity;
     private float xRotation = 0f;
 
@@ -109,6 +110,12 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+
+        if (other.CompareTag("RifleBullets"))
+        {
+            gunController.reserveAmmo += 30;
+            Destroy(other.gameObject);
         }
     }
 

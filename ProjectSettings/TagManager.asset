@@ -9,6 +9,9 @@ TagManager:
   - Ground
   - PlayerIsClose
   - Enemy
+  - RifleBullets
+  - PistolBullets
+  - HealthRecovery
   layers:
   - Default
   - TransparentFX

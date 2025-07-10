@@ -16,8 +16,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private bool isAutomatic = false;
 
     [Header("Ammunition")]
-    [SerializeField] private float currentAmmo = 12;
-    [SerializeField] private float reserveAmmo = 50;
+    [SerializeField] public float currentAmmo = 12;
+    [SerializeField] public float reserveAmmo = 50;
     [SerializeField] private Text textCurrentAmmo;
     [SerializeField] private Text textReserveAmmo;
 
@@ -135,6 +135,11 @@ public class GunController : MonoBehaviour
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hit, range))
         {
             Debug.Log("Acertou");
+            EnemyController enemy = hit.transform.GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
         }
         currentAmmo--;
     }

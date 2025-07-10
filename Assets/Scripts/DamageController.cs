@@ -14,8 +14,12 @@ public class DamageController : MonoBehaviour
     [SerializeField] private Image damageOverlay;
     [SerializeField] private float flashSpeed = 5f;
     [SerializeField] private float overlayMaxAlpha = 0.4f;
-    [SerializeField] private Text healthText;
+    [SerializeField] public Text healthText;
     private Coroutine damageCoroutine;
+
+    [Header("Sound Settings")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
 
     private bool flashing = false;
 
@@ -38,8 +42,8 @@ public class DamageController : MonoBehaviour
             {
                 damageCoroutine = StartCoroutine(ApplyDamageOverTime());
             }
-            // StartCoroutine(ApplyDamageOverTime());
-            
+
+
         }
     }
 
@@ -53,29 +57,33 @@ public class DamageController : MonoBehaviour
                 damageCoroutine = null;
             }
             //StopCoroutine(ApplyDamageOverTime());
-            
-            
-        }    
+
+
+        }
     }
 
     IEnumerator ApplyDamageOverTime()
     {
-        isTakingDamage = true;
-
-        while (isTakingDamage)
+        if (playerController.health > 0)
         {
-            playerController.health -= damageAmount;
-            playerController.health = Mathf.Clamp(playerController.health, 0, playerController.maxHealth);
+            isTakingDamage = true;
 
-            healthText.text = playerController.health.ToString();
-            StartCoroutine(FlashDamageOverlay());
-
-            if (playerController.health <= 0)
+            while (isTakingDamage)
             {
-                playerController.Die();
-                yield break;
+                StartCoroutine(DamageSound());
+                playerController.health -= damageAmount;
+                playerController.health = Mathf.Clamp(playerController.health, 0, playerController.maxHealth);
+
+                healthText.text = playerController.health.ToString();
+                StartCoroutine(FlashDamageOverlay());
+
+                if (playerController.health <= 0)
+                {
+                    playerController.Die();
+                    yield break;
+                }
+                yield return new WaitForSeconds(damageInterval);
             }
-            yield return new WaitForSeconds(damageInterval);
         }
     }
 
@@ -100,5 +108,16 @@ public class DamageController : MonoBehaviour
 
         damageOverlay.color = endColor;
         flashing = false;
+    }
+
+    IEnumerator DamageSound()
+    {
+        if (audioClips.Length > 0  && audioSource != null)
+        {
+            int randomIndex = Random.Range(0, audioClips.Length);
+            audioSource.clip = audioClips[randomIndex];
+            audioSource.Play();
+            yield return null;
+        }
     }
 }
