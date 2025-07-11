@@ -112,12 +112,16 @@ public class DamageController : MonoBehaviour
 
     IEnumerator DamageSound()
     {
-        if (audioClips.Length > 0  && audioSource != null)
+        if (audioClips.Length > 0 && audioSource != null)
         {
             int randomIndex = Random.Range(0, audioClips.Length);
             audioSource.clip = audioClips[randomIndex];
             audioSource.Play();
             yield return null;
+        }
+        else
+        {
+            Debug.Log("Enemy Audio Files not found");
         }
     }
 }

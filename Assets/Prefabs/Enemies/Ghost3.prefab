@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5446477390807014368, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.78769684
+      value: 16.34983
       objectReference: {fileID: 0}
     - target: {fileID: 5446477390807014368, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -1.3621261
       objectReference: {fileID: 0}
     - target: {fileID: 5446477390807014368, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7198868
+      value: 51.749924
       objectReference: {fileID: 0}
     - target: {fileID: 5446477390807014368, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5446477390807014373, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_Name
-      value: LittleGhost_LP (5) Variant
+      value: Ghost3
       objectReference: {fileID: 0}
     - target: {fileID: 5446477390807014373, guid: b713585f24f940f4eadb10319818ef40, type: 3}
       propertyPath: m_TagString
@@ -125,6 +125,11 @@ MonoBehaviour:
   bloodEffectTime: 0.1
   maxHealth: 100
   enemyHealth: 100
+  audioSource: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: 0a6b8f96df3d4d206bd85297d80ebdf6, type: 3}
+  - {fileID: 8300000, guid: 0661a33c1ce75d760b50ac23ca455a28, type: 3}
+  enemyDeathFX: {fileID: 8300000, guid: 16ceedcee2cb7eae29ca028195da9e04, type: 3}
 --- !u!4 &7120802088875421365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5446477390807014368, guid: b713585f24f940f4eadb10319818ef40, type: 3}

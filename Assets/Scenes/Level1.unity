@@ -359,6 +359,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 4340801804607688648, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 6013561656792740392, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 47.227318
@@ -925,6 +929,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 3362499720772419148, guid: b0f4c75ea3c10ed75b548404ab8e0e51, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 4967845700230921248, guid: b0f4c75ea3c10ed75b548404ab8e0e51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.77359
@@ -996,6 +1004,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 4340801804607688648, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 6013561656792740392, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.225876
@@ -1336,6 +1348,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 4340801804607688648, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 6013561656792740392, guid: 4d9eb9f2fd3fc760cb955c22edc684a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.305107
@@ -2710,6 +2726,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 8843800465436228399, guid: eb64db6c0f2cfbec7a8bc3d9f1e0edc8, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2964,6 +2984,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 1482448178087449536, guid: 7421b361eecde9437b5d54ef268ad80f, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 7120802088875421360, guid: 7421b361eecde9437b5d54ef268ad80f, type: 3}
       propertyPath: m_Name
       value: Ghost3
@@ -4660,6 +4684,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 2230653694595231646, guid: 1bbafe9ddfd879dbf90944ff170700a8, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 3353492509984878891, guid: 1bbafe9ddfd879dbf90944ff170700a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 37.59867
@@ -5088,6 +5116,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1617104153}
+    - target: {fileID: 3362499720772419148, guid: b0f4c75ea3c10ed75b548404ab8e0e51, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1314931345}
     - target: {fileID: 4967845700230921248, guid: b0f4c75ea3c10ed75b548404ab8e0e51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.145844
@@ -6082,6 +6114,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1617104156}
+    - target: {fileID: 2107939315633492637, guid: 777d674b7a21cfa3f8b0964e102930c4, type: 3}
+      propertyPath: textGotAmmunation
+      value: 
+      objectReference: {fileID: 1928348001}
     - target: {fileID: 4329880720150095754, guid: 777d674b7a21cfa3f8b0964e102930c4, type: 3}
       propertyPath: m_Name
       value: HealthMushroom

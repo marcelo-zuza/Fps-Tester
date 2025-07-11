@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8406845055882037674, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
       propertyPath: m_Name
-      value: LittleGhost_LP (2) Variant
+      value: Ghost2
       objectReference: {fileID: 0}
     - target: {fileID: 8406845055882037674, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
       propertyPath: m_TagString
@@ -130,6 +130,9 @@ MonoBehaviour:
   bloodEffectTime: 0.1
   maxHealth: 100
   enemyHealth: 100
+  audioSource: {fileID: 0}
+  audioClips: []
+  enemyDeathFX: {fileID: 8300000, guid: 16ceedcee2cb7eae29ca028195da9e04, type: 3}
 --- !u!1001 &5734808950724955729
 PrefabInstance:
   m_ObjectHideFlags: 0
