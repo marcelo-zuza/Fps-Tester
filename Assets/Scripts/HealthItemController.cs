@@ -27,7 +27,7 @@ public class HealthItemController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerController.health += 30;
+            playerController.health += 50;
             damageController.healthText.text = playerController.health.ToString();
             if (itemFx != null && audioSource != null)
             {

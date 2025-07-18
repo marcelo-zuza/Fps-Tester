@@ -11,6 +11,8 @@ public class TitleScreenController : MonoBehaviour
     [SerializeField] private GameObject instructionsText;
     [SerializeField] private Text startGameMessage;
     [SerializeField] private float timeToShowStartMessage = 2f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip instructionsAudio;
     private bool isInstructionsOn = false;
     private bool isStartGameMessageOn = false;
 
@@ -31,6 +33,8 @@ public class TitleScreenController : MonoBehaviour
                     isInstructionsOn = true;
                     mainTitleText.gameObject.SetActive(false);
                     instructionsText.gameObject.SetActive(true);
+                    if (audioSource != null && instructionsAudio != null) audioSource.PlayOneShot(instructionsAudio);
+                    else Debug.Log("Audio elements not found");
                     StartCoroutine(ShowStartGameMessage());
                 }
                 else if (isInstructionsOn && isStartGameMessageOn)

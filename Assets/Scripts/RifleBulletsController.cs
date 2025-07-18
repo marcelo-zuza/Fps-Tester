@@ -26,7 +26,7 @@ public class RifleBulletsController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gunController.reserveAmmo += 30;
+            gunController.reserveAmmo += 50;
             if (itemFx != null && audioSource != null)
             {
                 audioSource.PlayOneShot(itemFx);

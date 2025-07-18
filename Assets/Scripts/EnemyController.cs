@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private AudioClip[] audioClips;
     [SerializeField] private AudioClip enemyDeathFX;
     private bool isDead = false;
+    private GameManager gameManager;
 
     private NavMeshAgent agent;
     void Start()
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
         agent.speed = chaseSpeed;
         enemyHealth = maxHealth;
         StartCoroutine(EnemySoundFX());
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -81,6 +83,8 @@ public class EnemyController : MonoBehaviour
         {
             audioSource.PlayOneShot(enemyDeathFX);
         }
+        if(gameManager != null) gameManager.GhostKilled();
+        else Debug.Log("Game Manager not found");
 
         Destroy(gameObject, 0.5f);
     }
