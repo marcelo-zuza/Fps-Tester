@@ -39,6 +39,8 @@ public class TitleScreenController : MonoBehaviour
                 }
                 else if (isInstructionsOn && isStartGameMessageOn)
                 {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
                     SceneManager.LoadScene(1);
                 }
             }

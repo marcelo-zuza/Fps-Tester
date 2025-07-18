@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float bloodEffectTime = 0.2f;
 
     [Header("Enemy Stats")]
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHealth = 50f;
     [SerializeField] public float enemyHealth;
 
     [Header("Enemy Sound FX")]
